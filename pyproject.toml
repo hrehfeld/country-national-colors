@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "country-national-colors"
+version = "0.1.0"
+description = "A list of national colors per country as found on https://en.wikipedia.org/wiki/National_colours"
+authors = ["hrehfeld <hauke@haukerehfeld.de>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.dev-dependencies]
+requests = "^2.23.0"
+beautifulsoup4 = "^4.9.0"
+webcolors = "^1.11.1"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
