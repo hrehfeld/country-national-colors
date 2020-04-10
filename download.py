@@ -9,8 +9,9 @@ country_name_url = 'https://raw.githubusercontent.com/stefangabos/world_countrie
 country_name_normalization_filepath = pathlib.Path('country-normalization.json')
 country_isonames_filepath = pathlib.Path('country-iso3166.json')
 
-hexcolor_output_file = pathlib.Path('national-colors-hex.json')
-rgbcolor_output_file = pathlib.Path('national-colors-rgb.json')
+output_dir = pathlib.Path('data')
+hexcolor_output_file = output_dir / ('national-colors-hex.json')
+rgbcolor_output_file = output_dir / ('national-colors-rgb.json')
 
 organisation_key = 'Organisation'
 country_key = 'Country'
@@ -50,6 +51,8 @@ def main():
     resp.raise_for_status()
     dom = BeautifulSoup(resp.text)
 
+    output_dir.mkdir(exist_ok=True)
+
     color_data = {}
 
     for table in dom.find_all('table', { 'class': 'wikitable' }):
@@ -85,6 +88,9 @@ def main():
     with hexcolor_output_file.open('w') as f:
         json.dump(color_data, f)
 
+    color_data_rgb = dict([(country, [webcolors.hex_to_rgb(c) for c in colors]) for country, colors in color_data.items()])
+    with rgbcolor_output_file.open('w') as f:
+        json.dump(color_data_rgb, f)
 
 
 
