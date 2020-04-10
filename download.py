@@ -16,6 +16,7 @@ rgbcolor_output_file = output_dir / ('national-colors-rgb.json')
 organisation_key = 'Organisation'
 country_key = 'Country'
 colors_key = 'Primary'
+secondary_colors_key = 'Secondary'
 
 def parse_color(span):
     styles = span.attrs['style'].split(';')
@@ -65,6 +66,7 @@ def main():
             continue
         icol_country = headers.index(country_key)
         icol_colors = headers.index(colors_key)
+        icol_colors_secondary = headers.index(secondary_colors_key)
 
         for i, row in enumerate(rows[1:]):
             cells = row.find_all('td')
@@ -72,6 +74,7 @@ def main():
             country_name = cells[icol_country].text.strip()
 
             primary_colors = [parse_color(span) for span in cells[icol_colors].find_all('span')]
+            secondary_colors = [parse_color(span) for span in cells[icol_colors_secondary].find_all('span')]
             assert country_name not in color_data, 'duplicate country_name: ' + country_name
 
             country_name = country_name_normalizations.get(country_name, country_name)
