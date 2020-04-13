@@ -89,11 +89,11 @@ def main():
             color_data[country_iso] = primary_colors
 
     with hexcolor_output_file.open('w') as f:
-        json.dump(color_data, f)
+        json.dump(color_data, f, indent=4, sort_keys=True)
 
     color_data_rgb = dict([(country, [webcolors.hex_to_rgb(c) for c in colors]) for country, colors in color_data.items()])
     with rgbcolor_output_file.open('w') as f:
-        json.dump(color_data_rgb, f)
+        json.dump(color_data_rgb, f, indent=4, sort_keys=True)
 
 
 
