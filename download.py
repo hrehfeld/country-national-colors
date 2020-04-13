@@ -85,7 +85,7 @@ def main():
             if not country_iso:
                 print('WARNING: missing iso code for ' + country_name + '. Skipping.')
                 continue
-
+            country_iso = country_iso.upper()
             color_data[country_iso] = primary_colors
 
     with hexcolor_output_file.open('w') as f:
